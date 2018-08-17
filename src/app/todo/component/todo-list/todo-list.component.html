@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let todo of $todoList | async">
+    <span> {{todo.id}} {{todo.description}} {{todo.status}} {{todo.priority}}</span>
+  </li>
+</ul>
