@@ -1,10 +1,20 @@
 <form [formGroup]="form">
-  <input type="text" placeholder="description" formControlName="description"/>
-  <input type="number" placeholder="priority" formControlName="priority">
-  <select formControlName="status">
-    <option *ngFor="let status of statuses" [ngValue]="status">{{status}}</option>
-  </select>
+  <mat-form-field>
+    <input type="text" matInput placeholder="description" formControlName="description"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="number" matInput placeholder="priority" formControlName="priority">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select formControlName="status">
+      <mat-option *ngFor="let status of statuses" [value]="status">{{status}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
-<button (click)="onAddTodo()">
-    Add TODO
-</button>
+<div class="columns">
+  <div class="column is-one-third is-offset-one-third">
+    <button class="button is-primary add-button" (click)="onAddTodo()" [disabled]="form.invalid">
+      Add Task
+    </button>
+  </div>
+</div>

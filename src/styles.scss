@@ -1,0 +1,37 @@
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+html {
+  overflow-y: hidden !important;
+}
+
+body {
+  background: #00C9FF; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #92FE9D, #00C9FF); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #92FE9D, #00C9FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+input[type="text"], input[type="number"] {
+  color: white !important;
+}
+
+@mixin stack-base {
+  background: white;
+  min-height: 420px;
+  margin: 20px;
+}
+
+.stack-form {
+  @include stack-base();
+  background-color: rgba(54, 54, 54, 0.9);
+  margin-right: 140px;
+}
+
+.stack-container{
+  @include stack-base();
+  opacity: 0.8;
+}
+
+.stack-container:hover {
+  opacity: 1;
+}
+

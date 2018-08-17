@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
 
 @NgModule({
   exports: [

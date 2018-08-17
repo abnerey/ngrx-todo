@@ -6,13 +6,16 @@ import { TodoListComponent } from './todo/component/todo-list/todo-list.componen
 import { TodoInputComponent } from './todo/component/todo-input/todo-input.component';
 import { StoreModule } from '@ngrx/store';
 import { TodoReducer } from './todo/reducers/todo.reducer';
-import {MaterialImplModule} from './shared/material-impl.module';
+import {MaterialImplModule} from './shared/modules/material-impl.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {StatusPipe} from './shared/pipes/status.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
-    TodoInputComponent
+    TodoInputComponent,
+    StatusPipe
   ],
   imports: [
     BrowserModule,
@@ -21,7 +24,8 @@ import {MaterialImplModule} from './shared/material-impl.module';
     StoreModule.forRoot({
       todo: TodoReducer
     }),
-    MaterialImplModule
+    MaterialImplModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

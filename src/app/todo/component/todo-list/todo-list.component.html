@@ -1,5 +1,25 @@
-<ul>
-  <li *ngFor="let todo of $todoList | async">
-    <span> {{todo.id}} {{todo.description}} {{todo.status}} {{todo.priority}}</span>
-  </li>
-</ul>
+<div class="columns">
+  <div class="column is-one-third stack-container">
+    <div class="card" *ngFor="let todo of $todoList | async | statusFilter:'TODO'">
+      <div class="card-content">
+        <div class="subtitle"> {{todo.description}} {{todo.priority}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column is-one-third stack-container">
+    <div class="card" *ngFor="let todo of $todoList | async | statusFilter:'WORKING'">
+      <div class="card-content">
+        <div class="subtitle"> {{todo.description}} {{todo.priority}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column is-one-third stack-container">
+    <div class="card" *ngFor="let todo of $todoList | async | statusFilter:'DONE'">
+      <div class="card-content">
+        <div class="subtitle"> {{todo.description}} {{todo.priority}}</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { TODO, Status } from '../../models/todo.model';
 import { TodoActionType } from '../../actions/todo.actions';
 import { FormBuilder, FormGroup, AbstractControl, Validators, FormControl } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 interface TodoState {
   todo: TODO[];
@@ -34,9 +34,9 @@ export class TodoInputComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      description: new FormControl('', Validators.compose([Validators.required])),
+      description: new FormControl('', Validators.compose([Validators.required, Validators.maxLength(120), Validators.minLength(10)])),
       status: new FormControl(Status.TODO, Validators.compose([Validators.required])),
-      priority: new FormControl(0, Validators.compose([Validators.required]))
+      priority: new FormControl(1, Validators.compose([Validators.required, Validators.min(1), Validators.max(10)]))
     });
     this.description = this.form.get('description');
     this.status = this.form.get('status');

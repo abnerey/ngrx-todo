@@ -11,12 +11,12 @@ interface TodoState {
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent {
   $todoList: Observable<TODO[]>;
 
-  constructor(private store: Store<TodoState>) { 
+  constructor(private store: Store<TodoState>) {
     this.$todoList = store.pipe(
       select('todo')
     );
