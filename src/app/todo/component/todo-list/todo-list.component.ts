@@ -1,33 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { TODO } from '../../models/todo.model';
-import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { TodoActionType } from '../../actions/todo.actions';
-
-interface TodoState {
-  $todo: TODO[];
-}
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent {
-  $todoList: Observable<TODO[]>;
+  @Input() todoSlice: Observable<TODO[]>;
+  @Output() onRemoveTodo = new EventEmitter<TODO>();
+  @Output() onUpdateTodo = new EventEmitter<TODO>();
 
-  constructor(private store: Store<TodoState>) {
-    this.$todoList = store.pipe(
-      select('todo')
-    );
+  onRemove(todo: TODO) {
+    this.onRemoveTodo.emit(todo);
   }
 
-  remove(todo: TODO) {
-    this.store.dispatch({type: TodoActionType.REMOVE});
-  }
-
-  update(todo: TODO) {
-    this.store.dispatch({type: TodoActionType.UPDATE});
+  onUpdate(todo: TODO) {
+    this.onUpdateTodo.emit(todo);
   }
 
 }

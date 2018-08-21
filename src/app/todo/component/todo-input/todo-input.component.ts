@@ -1,20 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { TODO, Status } from '../../models/todo.model';
-import { TodoActionType } from '../../actions/todo.actions';
 import { FormBuilder, FormGroup, AbstractControl, Validators, FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
-
-interface TodoState {
-  todo: TODO[];
-}
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo-input',
   templateUrl: './todo-input.component.html',
-  styleUrls: ['./todo-input.component.css']
+  styleUrls: ['./todo-input.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoInputComponent implements OnInit, OnDestroy {
+export class TodoInputComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() todoSlice: Observable<TODO[]>;
+  @Output() onAddTodo = new EventEmitter<TODO>();
 
   statuses: string[] = [];
   form: FormGroup;
@@ -24,12 +21,8 @@ export class TodoInputComponent implements OnInit, OnDestroy {
   $listTodo: TODO[];
   $listTodoSub: Subscription;
 
-  constructor(private readonly store: Store<TodoState>,
-              private readonly formBuilder: FormBuilder) {
+  constructor(private readonly formBuilder: FormBuilder) {
     this.statuses = Object.keys(Status);
-    this.$listTodoSub = (this.store.pipe(
-      select('todo')
-    )).subscribe($todoList => this.$listTodo = $todoList);
   }
 
   ngOnInit() {
@@ -47,16 +40,24 @@ export class TodoInputComponent implements OnInit, OnDestroy {
     this.$listTodoSub.unsubscribe();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    const {todoSlice} = changes;
+    if (todoSlice && todoSlice.currentValue) {
+      this.$listTodoSub = this.todoSlice.subscribe(listTodo => {
+        this.$listTodo = listTodo
+      });
+    }
+  }
+
   getLastId(): number {
-    console.log('list', this.$listTodo);
-    const {id: lastID} = this.$listTodo[this.$listTodo.length - 1] || {id: 0};
+    const {id: lastID} = (this.$listTodo && this.$listTodo[this.$listTodo.length - 1]) || {id: 0};
     return lastID + 1;
   }
 
-  onAddTodo() {
-    const payload: TODO = this.form.getRawValue();
-    payload['id'] = this.getLastId();
-    this.store.dispatch({type: TodoActionType.ADD, payload });
+  add() {
+    const newTodo: TODO = this.form.getRawValue();
+    newTodo['id'] = this.getLastId();
+    this.onAddTodo.emit(newTodo);
   }
 
 }

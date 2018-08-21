@@ -1,22 +1,22 @@
 <div class="columns">
-  <div class="column is-one-third stack-container">
-    <div class="card" *ngFor="let todo of $todoList | async | statusFilter:'TODO'">
+  <div class="column is-one-third stack-container" *ngIf="todoSlice">
+    <div class="card" *ngFor="let todo of todoSlice | async | statusFilter:'TODO'">
       <div class="card-content">
         <div class="subtitle"> {{todo.description}} {{todo.priority}}</div>
       </div>
     </div>
   </div>
 
-  <div class="column is-one-third stack-container">
-    <div class="card" *ngFor="let todo of $todoList | async | statusFilter:'WORKING'">
+  <div class="column is-one-third stack-container" *ngIf="todoSlice">
+    <div class="card" *ngFor="let todo of todoSlice | async | statusFilter:'WORKING'">
       <div class="card-content">
         <div class="subtitle"> {{todo.description}} {{todo.priority}}</div>
       </div>
     </div>
   </div>
 
-  <div class="column is-one-third stack-container">
-    <div class="card" *ngFor="let todo of $todoList | async | statusFilter:'DONE'">
+  <div class="column is-one-third stack-container" *ngIf="todoSlice">
+    <div class="card" *ngFor="let todo of todoSlice | async | statusFilter:'DONE'">
       <div class="card-content">
         <div class="subtitle"> {{todo.description}} {{todo.priority}}</div>
       </div>
