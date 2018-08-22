@@ -2,9 +2,17 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false
-};
+export const environment = Object.freeze({
+  production: false,
+  firebaseConfig: {
+    apiKey: 'AIzaSyB-Tt0LnIM1hDzkmeEpo39ceFfQRMBWZH0',
+    authDomain: 'ngrx-to-do.firebaseapp.com',
+    databaseURL: 'https://ngrx-to-do.firebaseio.com',
+    projectId: 'ngrx-to-do',
+    storageBucket: 'ngrx-to-do.appspot.com',
+    messagingSenderId: '1039435159577'
+  }
+});
 
 /*
  * In development mode, to ignore zone related error stack frames such as

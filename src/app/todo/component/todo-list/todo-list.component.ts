@@ -10,15 +10,15 @@ import { Observable } from 'rxjs';
 })
 export class TodoListComponent {
   @Input() todoSlice: Observable<TODO[]>;
-  @Output() onRemoveTodo = new EventEmitter<TODO>();
-  @Output() onUpdateTodo = new EventEmitter<TODO>();
+  @Output() removeTodo = new EventEmitter<TODO>();
+  @Output() updateTodo = new EventEmitter<TODO>();
 
   onRemove(todo: TODO) {
-    this.onRemoveTodo.emit(todo);
+    this.removeTodo.emit(todo);
   }
 
   onUpdate(todo: TODO) {
-    this.onUpdateTodo.emit(todo);
+    this.updateTodo.emit(todo);
   }
 
 }

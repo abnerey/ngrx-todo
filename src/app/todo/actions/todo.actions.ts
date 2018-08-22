@@ -25,7 +25,7 @@ export class UpdateAction implements Action {
     constructor(public payload: TODO) {}
 }
 
-export type TODOActionsUnion = 
+export type TODOActionsUnion =
     | AddAction
     | RemoveAction
     | UpdateAction;

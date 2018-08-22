@@ -3,6 +3,10 @@ mat-form-field {
   margin-top: 25px;
 }
 
+mat-form-field input {
+  text-align: right;
+}
+
 .add-button {
 
 }

@@ -1,4 +1,14 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { TODO, Status } from '../../models/todo.model';
 import { FormBuilder, FormGroup, AbstractControl, Validators, FormControl } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
@@ -11,7 +21,7 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class TodoInputComponent implements OnInit, OnDestroy, OnChanges {
   @Input() todoSlice: Observable<TODO[]>;
-  @Output() onAddTodo = new EventEmitter<TODO>();
+  @Output() addTodo = new EventEmitter<TODO>();
 
   statuses: string[] = [];
   form: FormGroup;
@@ -44,7 +54,7 @@ export class TodoInputComponent implements OnInit, OnDestroy, OnChanges {
     const {todoSlice} = changes;
     if (todoSlice && todoSlice.currentValue) {
       this.$listTodoSub = this.todoSlice.subscribe(listTodo => {
-        this.$listTodo = listTodo
+        this.$listTodo = listTodo;
       });
     }
   }
@@ -57,7 +67,7 @@ export class TodoInputComponent implements OnInit, OnDestroy, OnChanges {
   add() {
     const newTodo: TODO = this.form.getRawValue();
     newTodo['id'] = this.getLastId();
-    this.onAddTodo.emit(newTodo);
+    this.addTodo.emit(newTodo);
   }
 
 }

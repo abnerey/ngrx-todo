@@ -1,11 +1,11 @@
 <div class="columns">
     <div class="column is-one-fifth stack-form">
-        <app-todo-input [todoSlice]="todoSlice" (onAddTodo)="onAddTodo($event)"></app-todo-input>
+        <app-todo-input [todoSlice]="todoSlice" (addTodo)="onAddTodo($event)"></app-todo-input>
     </div>
     <!--<div class="column is-1"></div>-->
     <div class="column is-three-fifths">
         <app-todo-list  [todoSlice]="todoSlice"
-                        (onRemoveTodo)="onRemoveTodo($event)"
-                        (onUpdateTodo)="onUpdateTodo($event)"></app-todo-list>
+                        (removeTodo)="onRemoveTodo($event)"
+                        (updateTodo)="onUpdateTodo($event)"></app-todo-list>
     </div>
 </div>
