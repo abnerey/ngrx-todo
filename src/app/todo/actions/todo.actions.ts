@@ -5,6 +5,18 @@ export abstract class TodoActionType {
     static readonly ADD = 'ADD';
     static readonly REMOVE = 'REMOVE';
     static readonly UPDATE = 'UPDATE';
+    static readonly LOAD = 'LOAD';
+    static readonly LOAD_TODOS = 'LOAD_TODOS';
+}
+
+export class LoadTodosAction implements Action {
+  readonly type = TodoActionType.LOAD_TODOS;
+}
+
+export class LoadAction implements Action {
+  readonly type = TodoActionType.LOAD;
+
+  constructor(public payload: TODO[]) {}
 }
 
 export class AddAction implements Action {
@@ -26,6 +38,7 @@ export class UpdateAction implements Action {
 }
 
 export type TODOActionsUnion =
+    | LoadAction
     | AddAction
     | RemoveAction
     | UpdateAction;

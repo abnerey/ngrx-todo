@@ -4,8 +4,11 @@ import { TODOActionsUnion, TodoActionType } from '../actions/todo.actions';
 const initialState: TODO[] = [];
 
 export function TodoReducer(state: TODO[] = initialState, action: TODOActionsUnion) {
-    console.log('todo reducer', state, action);
+    // console.log('todo reducer', state, action);
     switch (action.type) {
+        case TodoActionType.LOAD:
+            return action.payload;
+
         case TodoActionType.ADD:
             return [...state, action.payload];
 
@@ -19,18 +22,12 @@ export function TodoReducer(state: TODO[] = initialState, action: TODOActionsUni
                 }
                 return todo;
             });
-
-        default:
-            return state;
     }
-}
-
-export function Another(state = 1, action) {
-  return state + 1;
+    return state;
 }
 
 export function DummyReducer(state: TODO[] = initialState, action: TODOActionsUnion) {
-  console.log('dummy reducer', state, action);
+  // console.log('dummy reducer', state, action);
   switch (action.type) {
     case TodoActionType.ADD:
       return {id: action.payload.id};

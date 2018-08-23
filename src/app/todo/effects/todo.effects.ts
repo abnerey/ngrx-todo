@@ -1,20 +1,20 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore} from 'angularfire2/firestore';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Observable} from 'rxjs';
 import {Action} from '@ngrx/store';
-import {mergeMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
+import {TodoService} from '../services/todo.service';
+import {LoadAction} from '../actions/todo.actions';
 
 @Injectable()
 export class TodoEffects {
-  constructor(private readonly db: AngularFirestore,
+  constructor(private readonly todoService: TodoService,
               private readonly actions$: Actions) {}
 
   @Effect()
   $getTodos: Observable<Action> = this.actions$.pipe(
-    ofType('GETTODO'),
-    mergeMap(action => {
-
-    })
+    ofType('LOAD_TODOS'),
+    switchMap(() => this.todoService.getTodos()),
+    map(todos => new LoadAction(todos))
   );
 }

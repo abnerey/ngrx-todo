@@ -3,9 +3,8 @@ import {TodoState} from '../state/todo.state';
 import {Store, select} from '@ngrx/store';
 import {TODO} from '../models/todo.model';
 import {Observable, of} from 'rxjs';
-import {AddAction, TodoActionType} from '../actions/todo.actions';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {map} from 'rxjs/operators';
+import {LoadTodosAction, TodoActionType} from '../actions/todo.actions';
+import {TodoService} from '../services/todo.service';
 
 @Component({
   selector: 'app-todo',
@@ -17,7 +16,7 @@ export class TodoComponent implements OnInit {
   todoSlice: Observable<TODO[]>;
 
   constructor(private readonly store: Store<TodoState>,
-              private readonly db: AngularFirestore) {
+              private readonly todoService: TodoService) {
   }
 
   ngOnInit() {
@@ -28,7 +27,11 @@ export class TodoComponent implements OnInit {
         this.todoSlice = of(value.list);
       }
     });
-    this.db.collection('todo').snapshotChanges().pipe(
+    /*this.todoService.getTodos().subscribe(todoList => {
+      console.log('todos', todoList);
+    });*/
+    this.store.dispatch(new LoadTodosAction());
+    /*this.db.collection('todo').snapshotChanges().pipe(
       map(actions => {
         return actions.map(action => {
           // console.log('action', action);
@@ -36,12 +39,13 @@ export class TodoComponent implements OnInit {
         });
       })
     ).subscribe(snap => {
-      //console.log('snapshot changes', snap);
-    });
+      console.log('snapshot changes', snap);
+    });*/
   }
 
   onAddTodo(todo: TODO) {
     this.store.dispatch({type: TodoActionType.ADD, payload: todo});
+    // this.store.dispatch(new AddAction(todo));
   }
 
   onRemoveTodo(todo: TODO) {

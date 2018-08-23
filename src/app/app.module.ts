@@ -9,6 +9,7 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DummyModule} from './dummy.module';
+import {EffectsModule} from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -19,13 +20,14 @@ import {DummyModule} from './dummy.module';
     BrowserAnimationsModule,
     RoutingModule,
     StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    DummyModule
+    // DummyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

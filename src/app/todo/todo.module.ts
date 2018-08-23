@@ -11,6 +11,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialImplModule} from '../shared/modules/material-impl.module';
 import {EffectsModule} from '@ngrx/effects';
+import {TodoService} from './services/todo.service';
 
 const routes: Routes = [
   {path: '', component: TodoComponent}
@@ -25,17 +26,20 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     StoreModule.forFeature('todo', {
       list: TodoReducer,
-      dummy: DummyReducer
+      // dummy: DummyReducer
     }),
-    /*EffectsModule.forFeature([
+    EffectsModule.forFeature([
       TodoEffects
-    ])*/
+    ])
   ],
   declarations: [
     TodoComponent,
     TodoListComponent,
     TodoInputComponent,
     StatusPipe
+  ],
+  providers: [
+    TodoService
   ]
 })
 export class TodoModule {}
